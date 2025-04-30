@@ -12,6 +12,11 @@ hotkey_français = 'Ctrl+Alt+Shift+f'
 hotkey_anglais = 'Ctrl+Alt+Shift+a'
 hotkey_epeler = 'Ctrl+Alt+Shift+e'
 hotkey_quitter = 'Ctrl+Alt+Shift+q'
+# Défintion des autres paramètres
+mainOverlayTransparency = 0.1
+sellFillColor = 'yellow'
+sellOutlineColor = 'black'
+sellOutlineWidth = 5
 
 # Vérifier que l'application tesseract est installée sur l'ordianteur et accessible
 try:
@@ -32,6 +37,14 @@ try:
             hotkey_epeler = d["spell"]
         if "quit" in d:
             hotkey_quitter = d["quit"]
+        if "mainOverlayTransparency" in d:
+            mainOverlayTransparency = d["mainOverlayTransparency"]
+        if "sellFillColor" in d:
+            sellFillColor = d["sellFillColor"]
+        if "sellOutlineColor" in d:
+            sellOutlineColor = d["sellOutlineColor"]
+        if "sellOutlineWidth" in d:
+            sellOutlineWidth = d["sellOutlineWidth"]
         print ("seltts.settings found, use custom hotkeys:\n'"+hotkey_français+"' => Français\n'"+hotkey_anglais+"' => Anglais\n'"+hotkey_epeler+"' => Epeler\n'"+hotkey_quitter+"' => Quitter\n")
 except IOError:
     print ("seltts.settings not found, use default hotkeys:\n'Ctrl+Alt+Shift+f' => Français\n'Ctrl+Alt+Shift+a' => Anglais\n'Ctrl+Alt+Shift+e' => Epeler\n'Ctrl+Alt+Shift+q' => Quitter\n")
@@ -91,7 +104,7 @@ def capture_selection(lang):
         print ("Start capturing ("+lang+")")
         # Création d'une fenêtre en superposition à toutes les autres pour récupérer les coordonnées des clics
         root = Tk()
-        root.attributes("-alpha", 0.1) # léger voile gris pour voir à travers
+        root.attributes("-alpha", mainOverlayTransparency) # léger voile gris pour voir à travers
         root.attributes("-topmost", True) # placer la fenêtre au primer plan, en supperposition de toutes les autres fenêtres
         root.overrideredirect(True) # Cacher la barre de titre et les bordure de la fenêtre
         root.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}+0+0") # Redimentionnement de la fenêtre pour qu'elle couvre tout l'écran
@@ -103,8 +116,8 @@ def capture_selection(lang):
         def on_mouse_down(event):
             nonlocal start_x, start_y, rect
             start_x, start_y = event.x, event.y # Initialisation des coordonnées de départ à la position du pointeur de la souris
-            # Création d'un carré de sélection à fond jaune, bordure noire d'une épaisseur de 10
-            rect = canvas.create_rectangle(start_x, start_y, start_x, start_y, fill='yellow', outline='black', width=10)
+            # Création d'un carré de sélection à fond coloré avec bordure épaisse
+            rect = canvas.create_rectangle(start_x, start_y, start_x, start_y, fill=sellFillColor, outline=sellOutlineColor, width=sellOutlineWidth)
         
         # Sur le déplacement de la souris, on met à jour l'affichage du carré de sélection
         def on_move(event):

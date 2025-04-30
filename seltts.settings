@@ -2,5 +2,9 @@
 	"fr": "Ctrl+Alt+Shift+f",
 	"en": "Ctrl+Alt+Shift+a",
 	"spell": "Ctrl+Alt+Shift+e",
-	"quit": "Ctrl+Alt+Shift+q"
+	"quit": "Ctrl+Alt+Shift+q",
+	"mainOverlayTransparency": 0.1,
+	"sellFillColor": "yellow",
+	"sellOutlineColor": "black",
+	"sellOutlineWidth": 5
 }
