@@ -1,11 +1,10 @@
 import ctypes
 import json
-from pathlib import Path
-from tkinter import *
-import pyautogui # type: ignore
-import keyboard # type: ignore
-import pytesseract # type: ignore
-import pyttsx3 # type: ignoreimport ctypes
+from tkinter import BOTH, Canvas, Tk
+import keyboard
+import pyautogui
+import pytesseract
+import pyttsx3
 
 # Définition des raccourcis
 hotkey_français = 'Ctrl+Alt+Shift+f'
